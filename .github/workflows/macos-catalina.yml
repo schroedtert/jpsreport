@@ -19,6 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          pwd
           brew install boost
           cp scripts/setup-deps.sh /opt/
           cd /opt && chmod +x setup-deps.sh && CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9 ./setup-deps.sh
