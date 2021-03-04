@@ -3,11 +3,11 @@
 ################################################################################
 
 set(source_files
-   Logger.cpp
+        ../src/general/Logger.cpp
 )
 
 set(header_files
-   Logger.h
+        ../src/general/Logger.h
 )
 
 add_library(shared STATIC
