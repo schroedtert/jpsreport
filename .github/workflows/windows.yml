@@ -19,11 +19,12 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          $VCPKG_INSTALLATION_ROOT/vcpkg.exe install boost
-          $VCPKG_INSTALLATION_ROOT/vcpkg.exe install fmt
-          $VCPKG_INSTALLATION_ROOT/vcpkg.exe install spdlog
-          $VCPKG_INSTALLATION_ROOT/vcpkg.exe install catch2
-          $VCPKG_INSTALLATION_ROOT/vcpkg.exe install cli11
+          $(VCPKG_INSTALLATION_ROOT)/vcpkg.exe install boost
+          $(VCPKG_INSTALLATION_ROOT)/vcpkg.exe install fmt
+          $(VCPKG_INSTALLATION_ROOT)/vcpkg.exe install spdlog
+          $(VCPKG_INSTALLATION_ROOT)/vcpkg.exe install catch2
+          $(VCPKG_INSTALLATION_ROOT)/vcpkg.exe install cli11
+          $(VCPKG_INSTALLATION_ROOT)/vcpkg.exe install python3
 
           pip3 install numpy && \
               pip3 install pandas && \
