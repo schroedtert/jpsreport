@@ -21,6 +21,7 @@ jobs:
         run: |
           pwd
           brew install boost
+          brew install libomp
           cp scripts/setup-deps.sh ../
           cd .. && chmod +x setup-deps.sh && ./setup-deps.sh
           pip3 install numpy && \
