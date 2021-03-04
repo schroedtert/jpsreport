@@ -181,8 +181,8 @@ packages/
 /issues
 /latex
 /_site
-/systemtest/test_geometry/clean_geometry/log*
-/systemtest/test_geometry/clean_geometry/traj*
+/tests/systemtest/test_geometry/clean_geometry/log*
+/tests/systemtest/test_geometry/clean_geometry/traj*
 js
 .DS_Store
 JuPedSim-blx.bib
