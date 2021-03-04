@@ -23,7 +23,6 @@ jobs:
           vcpkg.exe install spdlog
           vcpkg.exe install catch2
           vcpkg.exe install cli11
-          vcpkg.exe install zlib
           vcpkg.exe install python3
 
           pip3 install numpy
