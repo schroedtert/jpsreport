@@ -17,8 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Copy dep script
-        COPY
       - name: Install Dependencies
         run: |
           pwd
