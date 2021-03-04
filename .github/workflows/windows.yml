@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          vcpkg.exe install boost
+          vcpkg.exe install boost-core boost-foreach boost-geometry boost-polygon boost-algorithm boost-range boost-ublas
           vcpkg.exe install fmt
           vcpkg.exe install spdlog
           vcpkg.exe install catch2
