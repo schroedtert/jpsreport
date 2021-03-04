@@ -12,10 +12,31 @@ jobs:
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: container/build/Dockerfile
+    runs-on: ubuntu:20.04
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          apt-get update && apt-get install -y software-properties-common
+          apt-get update && apt-get install -y wget \
+                                 git \
+                                 g++ \
+                                 clang-8 \
+                                 cmake \
+                                 make \
+                                 libboost-dev \
+                                 libcgal-dev \
+                                 python3 \
+                                 python3-pip \
+                                 python3-matplotlib
+          scripts/setup-deps.sh /opt/
+          cd /opt && CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9 ./setup-deps.sh
+          pip3 install numpy && \
+              pip3 install pandas && \
+              pip3 install dataclasses && \
+              pip3 install scipy
 
       - name: Create Build Environment
         # Some projects don't allow in-source building, so create a separate build directory
@@ -30,7 +51,7 @@ jobs:
         # Note the current convention is to use the -S and -B options here to specify source
         # and build directories, but this is only available with CMake 3.13 and higher.
         # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_TESTING=ON -DBUILD_UNIT_TEST=ON
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_TESTING=ON -DBUILD_UNIT_TEST=ON -DCMAKE_PREFIX_PATH=/opt/deps
 
       - name: Build
         working-directory: ${{github.workspace}}/build
