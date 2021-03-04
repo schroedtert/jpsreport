@@ -17,8 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Copy dep script
+        COPY
       - name: Install Dependencies
         run: |
+          pwd
+          ls scripts/*
+          ls
           apt-get update && apt-get install -y software-properties-common
           apt-get update && apt-get install -y wget \
                                  git \
