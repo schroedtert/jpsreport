@@ -9,33 +9,24 @@
 ################################################################################
 # Project setup
 ################################################################################
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
-project(JPScore VERSION 0.8.4 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
+project(JPSreport VERSION 0.8.4 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-include(helper_functions)
-include(code-coverage)
-
-print_var(PROJECT_VERSION)
-
-# Set default build type to release
-set(default_build_type "Release")
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-  message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
-  set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
-      STRING "Choose the type of build." FORCE)
-endif()
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+include(helper_functions)
 check_prefix_path()
+enforce_build_type_is_set()
+#add_clang_tidy_support_option()
 
 ################################################################################
 # Optional features
@@ -43,8 +34,8 @@ check_prefix_path()
 set(BUILD_TESTING OFF CACHE BOOL "Build with integration tests")
 print_var(BUILD_TESTING)
 
-set(BUILD_CPPUNIT_TEST OFF CACHE BOOL "Build with unit tests")
-print_var(BUILD_CPPUNIT_TEST)
+set(BUILD_UNIT_TEST OFF CACHE BOOL "Build with unit tests")
+print_var(BUILD_UNIT_TEST)
 
 set(BUILD_DOC OFF CACHE BOOL "Build doxygen documentation")
 print_var(BUILD_DOC)
@@ -66,12 +57,6 @@ else()
     set(USE_IPO ON)
 endif()
 
-set(BUILD_WITH_ASAN OFF CACHE BOOL
-  "Build with address sanitizer support. Linux / macOS only.")
-print_var(BUILD_WITH_ASAN)
-if(BUILD_WITH_ASAN AND ${CMAKE_SYSTEM} MATCHES "Windows")
-    message(FATAL_ERROR "Address sanitizer builds are not supported on Windows")
-endif()
 ################################################################################
 # Compilation flags
 ################################################################################
@@ -101,9 +86,6 @@ find_package(fmt 6.0 REQUIRED CONFIG)
 
 # spdlog
 find_package(spdlog 1.3 REQUIRED CONFIG)
-
-# CLI11
-find_package(CLI11 1.8 REQUIRED CONFIG)
 
 # Boost
 find_package(Boost 1.65 REQUIRED ${BOOST_COMPONENTS})
@@ -170,7 +152,7 @@ else()
     )
 endif()
 
-find_package(Threads REQUIRED)
+#find_package(Threads REQUIRED)
 find_package(PythonInterp 3 REQUIRED)
 
 ################################################################################
@@ -236,6 +218,7 @@ target_compile_definitions(git-info INTERFACE
     GIT_COMMIT_SUBJECT="${GIT_COMMIT_SUBJECT}"
     GIT_BRANCH="${GIT_BRANCH}"
 )
+
 ################################################################################
 # Documentation
 ################################################################################
@@ -269,69 +252,15 @@ endif(BUILD_DOC)
 
 ################################################################################
 # Testing
-################################################################################
-if(BUILD_CPPUNIT_TEST OR BUILD_TESTING)
+##############################################################################
+if(BUILD_UNIT_TEST OR BUILD_TESTING)
     enable_testing()
 endif()
 
 ################################################################################
 # Add libraries / executables
 ################################################################################
-add_subdirectory(libshared)
-add_subdirectory(libcore)
-add_subdirectory(jpscore)
-add_subdirectory(jpsreport)
-
-################################################################################
-# Code formating
-################################################################################
-if(UNIX)
-    find_program(CLANG_FORMAT
-        NAMES
-            clang-format
-            clang-format-10
-    )
-    if(CLANG_FORMAT)
-        execute_process(
-            COMMAND ${CLANG_FORMAT} --version
-            OUTPUT_VARIABLE version_string
-            ERROR_QUIET
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-        if(version_string MATCHES "^.*clang-format version .*")
-            string(REGEX REPLACE
-                "^.*clang-format version ([.0-9]+).*"
-                "\\1"
-                version
-                "${version_string}"
-            )
-            if(version MATCHES "^10.*")
-                message(STATUS "Found clang-format ${version}, add format-check and reformat targets")
-                set(folders jpscore jpsreport libcore)
-                add_custom_target(check-format
-                    COMMENT "Checking format with clang-format"
-                    COMMAND find ${folders}
-                        -name '*.cpp'
-                        -o -name '*.c'
-                        -o -name '*.h'
-                        -o -name '*.hpp' | xargs ${CLANG_FORMAT}
-                        -n -Werror --style=file
-                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-                )
-                add_custom_target(reformat
-                    COMMENT "Reformatting code with clang-format"
-                    COMMAND find ${folders}
-                        -name '*.cpp'
-                        -o -name '*.c'
-                        -o -name '*.h'
-                        -o -name '*.hpp' | xargs ${CLANG_FORMAT}
-                        -i --style=file
-                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-                )
-            endif()
-        endif()
-    endif()
-endif()
+add_subdirectory(src)
 
 ################################################################################
 # Integration tests
@@ -341,22 +270,22 @@ if (BUILD_TESTING)
   find_python_library(numpy)
   find_python_library(scipy)
   find_python_library(pandas)
-  add_subdirectory(systemtest)
+  add_subdirectory(tests/systemtest)
 endif (BUILD_TESTING)
 
-################################################################################
-# Packaging with CPack
-################################################################################
-include(CPackUtilities)
-IF(UNIX AND NOT APPLE)
-  cpack_write_deb_config()
-endif()
-if(WIN32 AND NOT UNIX)
-  cpack_write_windows_config()
-endif()
-if(APPLE)
-  cpack_write_osx_config()
-endif()
-
-cpack_write_config()
+#################################################################################
+## Packaging with CPack
+#################################################################################
+#include(CPackUtilities)
+#IF(UNIX AND NOT APPLE)
+#  cpack_write_deb_config()
+#endif()
+#if(WIN32 AND NOT UNIX)
+#  cpack_write_windows_config()
+#endif()
+#if(APPLE)
+#  cpack_write_osx_config()
+#endif()
+#
+#cpack_write_config()
 

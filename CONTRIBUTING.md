@@ -1,447 +1,152 @@
-Contributing to JuPedSim
-========================
+# Contributing
 
-This project is mainly developed by a small group of researchers and students from [Jülich Research Center](http://www.fz-juelich.de/en) and [BUW](http://www.uni-wuppertal.de/).
-However you are kindly invited not only to use JuPedSim but also contributing to our open-source-project.
-It does not matter if you are a researcher, student or just interested in pedestrian dynamics.
-There are only a few rules and advices we want to give to you:
+This page provides a starting point for getting involved with the JuPedSim/jpsreport project.
 
-- [Advice for new contributors](#advice-for-new-contributors)
-    - [First steps](#first-steps)
-    - [Workflow](#workflow)
-    - [FAQ](#faq)
+There are several ways to contribute to a project with Git. These are guidelines, not laws. But following this workflow adds a level of quality assurance to the project. Notes describing how to perform specific tasks using Git are given here.
 
-- [Reporting bugs and requesting features](#reporting-bugs-and-requesting-features)
-    - [Using the issue tracker](#using-the-issue-tracker)
-    - [Reporting bugs](#reporting-bugs)
-    - [Requesting features](#requesting-features)
+Please open a new [issue](https://github.com/JuPedSim/jpsreport/issues) if you encouter problems or have found a bug in the code.
 
-- [Writing code](#writing-code)
-    - [Coding style](#coding-style)
-    - [Unit tests](#unit-tests)
+## Getting started
 
-- [Writing documentation](#writing-documentation)
-    - [Comments](#comments)
-    - [Documenting new features](#documenting-new-features)
-    - [Sample Templates](#sample-templates)
+### Install Git on your local machine
 
-- [Committing code](#commiting-code)
-    - [Committing guidelines](#commiting-guidelines)
+Mac and Linux users will likely already have Git installed. To confirm this, open a terminal and type
 
-## Advice for new contributors
-
-### First steps
-* Clone/fork our github/gitlab repository
-~~~
-git clone https://cst.version.fz-juelich.de/jupedsim/jpscore.git
-~~~
-
-* Change to the developement branch and create a branch with your feature.
-~~~
-git checkout developement 
-git checkout -b feature_name
-~~~
-
-* Assuming you are in the jpscore folder type 
 ```
-mkdir build && cd build 
-cmake .. 
+$git --version
 ```
 
-* Download all dependencies, check if cmake tells you something is missing
-    * Boost >= 1.56
-    * Qt
-    * Vtk
-    
-* If everything compiled for the first time, you are free to start
+To install Git for windows go [here](https://git-scm.com/download/win).
 
-### Workflow
-The branches **master** and **develop** are **protected**. You can **only push to your feature-branch.**
-Whenever you want to add a feature or fix an issue create a new feature-branch and only work on this branch.
-If you change what you wanted to merge the develop-branch into your feature-branch.
-Make sure all tests are running after merging and you provided new tests for your feature.
-After doing that open a merge/pull request.
+### Create a GitHub account
 
-If your fix/feature is accepted it will be merged into the develop-branch.
+If you do not already have one, create a [GitHub account](https://github.com/).
 
-#################
-TODO: 
-- How to make branches out of issues
-- How to work with branches
-- Board usage
-- Gitlab in general: features
-- Wiki vs Web
-#######################
+### Do some local configuration
 
-### FAQ
+You will need to set your [Git configuration](http://www.git-scm.com/docs/git-config) so that the remote server knows who you are when you are pushing.
 
-## Reporting bugs and requesting features
-If you got a question or a problem and need support from our team feel free to contact us.
-You can do this via [email](mailto:dev@jupedsim.org).
+**Your username** (need not be your GitHub username):
 
-If you think you found an issue or bug in JuPedSim please use our issue tracker.
-
-### Using the issue tracker
-
-The issue tracker is the preferred channel for bug reports, features requests and submitting pull requests, but please respect the following restrictions:
-
-- Please do not use the issue tracker for personal support requests. [Mail us](mailto:dev@jupedsim.org) if you need personal support.
-
-- Please do not derail or troll issues. Keep the discussion on topic and respect the opinions of others.
-
-If you use the issue tracker we have a list of labels you should use.
-
-### Reporting bugs
-
-If you find a bug in the source code or a mistake in the documentation, you can help us by submitting an issue to our repository.
-Even better you can submit a pull or merge request with a fix. Please use the following template and make sure you provide us as much information as possible:
-
-~~~.md
-[Short description of problem here]
-
-**Reproduction Steps:**
-
-1. [First Step]
-2. [Second Step]
-3. [Other Steps...]
-
-**Expected behavior:**
-
-[Describe expected behavior here]
-
-**Observed behavior:**
-
-[Describe observed behavior here]
-
-**Screenshots and GIFs**
-
-![Screenshots and GIFs which follow reproduction steps to demonstrate the problem](url)
-
-**JuPedSim version:** [Enter JuPedSim version here]
-**OS and version:** [Enter OS name and version here]
-**Compiler and version:** [Enter compiler name and version here]
-
-**Installed Libraries:**
-[Enter Boost version here]
-[Enter Vtk version here]
-[Enter Qt version here]
-
-**Additional information:**
-
-* Problem started happening recently, didn't happen in an older version of JuPedSim: [Yes/No]
-* Problem can be reliably reproduced, doesn't happen randomly: [Yes/No]
-* Problem happens with all files and projects, not only some files or projects: [Yes/No]
-* Problem happens with the attached ini and geometry files: [Yes/No]
-~~~
-
-### Requesting features
-
-Enhancement suggestions are tracked as issues. After you've determined which repository your enhancement suggestions is related to, create an issue on that repository and provide the following information:
-
- * Use a clear and descriptive title for the issue to identify the suggestion.
- * Provide a step-by-step description of the suggested enhancement in as many details as possible.
- * Provide specific examples to demonstrate the steps. Include copy/pasteable snippets which you use in those examples, as Markdown code blocks.
- * Describe the current behavior and explain which behavior you expected to see instead and why.
-
-If you want to support us by writing the enhancement yourself consider what kind of change it is:
-
-- **Major changes** that you wish to contribute to the project should be discussed first on our **dev mailing list** so that we can better coordinate our efforts, prevent duplication of work, and help you to craft the change so that it is successfully accepted into the project.
-- **Small changes** can be crafted and submitted to our repository as a **pull or merge request**.
-
-Nevertheless open an issue for documentation purposes with the following template:
-
-~~~.md
-[Short description of suggestion]
-
-**Steps which explain the enhancement**
-
-1. [First Step]
-2. [Second Step]
-3. [Other Steps...]
-
-**Current and suggested behavior**
-
-[Describe current and suggested behavior here]
-
-**Why would the enhancement be useful to most users**
-
-[Explain why the enhancement would be useful to most users]
-
-[List some other text editors or applications where this enhancement exists]
-
-**Screenshots and GIFs**
-
-![Screenshots and GIFs which demonstrate the steps or part of JuPedSim the enhancement suggestion is related to](url)
-
-**JuPedSim Version:** [Enter JuPedSim version here]
-**OS and Version:** [Enter OS name and version here]~
-
-~~~
-
-## Writing Code
-
-### Coding style
-
-In JuPedSim we try to code according to the *Stroustrup* style of formatting/indenting.
-If you want (or have) to write code in JuPedSim you really **need** to respect that style.
-This is important not just aesthetically but also practically. Diff commits are much more clearer and cleaner.
-
-The code is formated using the automatic formatter [astyle](http://astyle.sourceforge.net/astyle.html)  with the option `--style=stroustrup`:
-
-> Stroustrup style formatting/indenting uses stroustrup brackets.
-> Brackets are broken from function definitions only.
-> Brackets are attached to everything else including
-> namespaces, classes, and statements within a function, arrays, structs, and enums.
-> This style frequently is used with an indent of 5 spaces.
-
-Here is an **example:**
-
-```c++
-int Foo(bool isBar)
-{
-     if (isBar) {
-          bar();
-          return 1;
-     } else
-          return 0;
-}
+```
+$ git config --global user.name "Paul Mustermann"
 ```
 
-#### Tabs vs Spaces
-This can be a long and religious discussion, to make it short *DO NOT* use tabs, just spaces please.
+**Your e-mail adress** (same as your GitHub account):
 
-Here are some hints to configure your editor in order to use the *stroustrup* style
-
-- **Emacs**:
-    Add this to your ```.emacs```
-```lisp
-(setq c-default-style "stroustrup" c-basic-offset 5)
-(setq indent-tabs-mode nil)
 ```
-- **Vim**:
-    Set in your config file these variables
-```javascript
-:set autoindent
-:set cindent
-:set expandtab
-:set shiftwidth=5
-:set softtabstop=5
+$ git config --global user.email "paul@mustermann.com"
 ```
 
-- **Eclipse**:
-    Here is a [plugin](http://astyleclipse.sourceforge.net/) for astyle in eclipse.
-    Read also
-    [How to change indentation width in eclipse?](https://superuser.com/questions/462221/how-do-i-reliably-change-the-indentation-width-in-eclipse)
+## Fork repos from JuPedSim
 
-- **Clion**
+Go to the [JuPedSim](https://github.com/JuPedSim) organization GitHub page. For each project you want to work with, fork the corresponding repo(s) over to your GitHub account by clicking the fork icon on the upper right. [Here](https://help.github.com/en), you can find more information about [forking](https://help.github.com/en/articles/fork-a-repo).
 
-### Unit tests
 
-Testing should be enabled by cmake as follows:
-```javascript
-cmake -DBUILD_TESTING=ON ..
+## Clone the forked repos
+
+The repo you will work from is now in your space on GitHub. To get this repo to your computer you need to clone it. There are a few ways to do this. For example, see the "Clone to Desktop" and "Download Zip" buttons to the right side of your project page. Here I will use the command line SSH clone. Note that you need to have an SSH key enabled for your computer. [Here](https://help.github.com/en), you can find more information about [cloning](https://help.github.com/en/articles/cloning-a-repository-from-github).
+
+
+## Staying up-to-date with the central repo
+
+First, check your remote state. You should see no "upstream" repositories. The only remote repo you should see is origin.
+
+```
+$ git remote -v
+origin git@github.com:username/jpsreport.git (fetch)
+origin git@github.com:username/jpsreport.git (push)
 ```
 
-After compiling (`make`) the tests can be called as follows:
+If you see "upstream" repos in addition to origin, then you need to remove them.
 
-```javascript
-ctest
+```
+$ git remote rm <repo-name>
 ```
 
-This will take some hours time (depending on your machine). Threfore, a quick testing could be used:
-```javascript
-ctest -R Boost
+Add tracking for JuPedSim/jpsreport. Here we will go ahead and name our "upstream" repo "JuPedSim".
+
+```
+$ git remote add JuPedSim git://github.com/JuPedSim/jpsreport.git
 ```
 
-which run a limited set of compiled unit tests on the code.
+## Updating your repository
 
-## Writing a unit test
-If you write a unit test the first lines in your file should be
+To get all the changes committed by other project members to the central repo, do the following:
 
-```c++
-#define BOOST_TEST_MODULE MyTest
-#define BOOST_TEST_DYN_LINK
-#include <boost/test/unit_test.hpp>
-#include classtotest.h
-
-BOOST_AUTO_TEST_SUITE(MyTestClass)
+```
+$ git remote update
+Fetching origin
+Fetching JuPedSim
 ```
 
-Then you can start implementing your test cases by using
-```c++
-BOOST_AUTO_TEST_CASE(MyTestCase) 
-{
-  ...
-}
+Make sure, you are in your develop branch
+```
+$ git checkout develop
 ```
 
-For each method or function you want to test you should write a new test case and give it a speaking name.
-
-### Verification and validation
-
-Besides unit testing, we use in JuPedSim python-driven tests for verification and validation purposes.
-Several validation and verification tests for *JuPedSim* (jpscore) are defined in the following section (e.g. Rimea and NIST).
-In order to make the nightly builds run automatically, consider the following steps, before adding new tests.
-This procedure is also recommended to make simulations with several inifiles e.g. different seeds.
-
-To write additional tests, create a directory under *Utest/*.
-
-
-- Create in *./jpscore/Utest/* a new direct with a descriptive name. For
-   example: */Utest/test\_case1/*
-- Put in that directory an ini-file (referred to as "master-inifile")
-   and all the relevant files for a simulation, e.g. geometry file, etc. In the master-inifile you can use python syntax
-   
-   Example:
-```xml
-   <max_sim_time>[3,4]</max_sim_time> 
-   <seed>range(1, 10)</seed>
+See what different in your development branch
 ```
-- run the script `makeini.py` with the obligatory option `-f`: Using the
-    aforementioned example the call is:
-```bash
-   python3 makeini.py -f test_case1/inifile.xml
+$ git diff JuPedSim/develop
 ```
 
-The Script is going to create two directories:
-- test\_case/trajectories: Here live the simulation trajectories.
-- test\_case/inifiles: and here the inifiles, that will be produced  based on the master inifile (in this case test\_case1/inifile.xml).
-    Note, that the geometry file and the trajectory files are all relative to the project files in the directory *inifiles*.
-
-
-- Write a runtest-script. Here you have to define the logic of your test. What should be tested? When does the file succeed or file? etc.
-
-Your script has to start with the following lines:
-
-```python
-#!/usr/bin/env python3
-import os
-import sys
-from sys import *
-sys.path.append(os.path.abspath(os.path.dirname(sys.path[0])))
-from JPSRunTest import JPSRunTestDriver
-from utils import *
+Merge any changes from the central repo
+```
+$ git merge JuPedSim/develop
 ```
 
-After including these lines you can write the test you want to perform for every ini-file generated from the makeini.py script.
-The method signature must contain at least two arguments to receive the inifile and the trajectory file from the simulation.
-
-```python
-def runtest(inifile, trajfile):
+Your LOCAL repo will now have changes made to JuPedSim/jpsreport. However, your GitHub repo will still be behind. You need to push the changes up to GitHub.
+```
+$ git push origin develop
 ```
 
-You can also use more than these arguments like this:
+## Making changes
 
-```python
-def runtest(inifile, trajfile, x, y, z):
+When you're working on the JuPedSim/jpsreport project, you're going to have a bunch of different features or ideas in progress at any given time – some of which are ready to go, and others which are not. Branching exists to help you manage this workflow. When you create a branch in your project, you're creating an environment where you can try out new ideas. Changes you make on a branch don't affect the main develop branch, so you're free to experiment and commit changes, safe in the knowledge that your branch won't be merged until it's ready to be reviewed by someone you're collaborating with.
+
+The next step is to "stage" your changes for commit and then to "commit" the changes to your local repo.
+
+**But wait! First, make sure your working branch is up-to-date by fetching and merging (pulling) any last-minute changes from the central repo.**
+
 ```
-
-If you need a more complex example of how to use more arguments for further calculations please see runtest_14.py.
-If a test has to fail because an error occurs or a necessary condition is not fulfilled  you can simply exit the script by using something like
-
-```python
-if condition_fails: 
-  exit(FAILURE)
-```
-Once you have written your test you have to make your script executable, so it has to contain a main function which calls the test:
-
-```python
-if __name__ == "__main__":
-  test = JPSRunTestDriver(1, argv0=argv[0], testdir=sys.path[0])
-  test.run_test(testfunction=runtest)
-  logging.info("%s exits with SUCCESS" % (argv[0]))
-  exit(SUCCESS)
-```
-
-
-## Writing Documentation
-
-### Comments
-Comments have to be written in **English** everywhere. Please use markdown where applicable.
-
-### Documenting new features
-Please update the changelog with every feature/fix you provide so we can keep track of changes for new versions of JuPedSim.
-
-### Sample Templates
-```
-/*!
- * \file [filename]
- *
- * \author [your name]
- * \date
- * \version     v[x.y]
- * \copyright   <2016-2022> Forschungszentrum Jülich GmbH. All rights reserved.
- *
- * \section License
- * This file is part of JuPedSim.
- *
- * JuPedSim is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * JuPedSim is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with JuPedSim. If not, see <http://www.gnu.org/licenses/>.
- *
- * \section Description
- *
- * [your comment here]
- */
+$git fetch JuPedSim
 ```
 
 ```
-/*!
- * \class [class name]
- *
- * \brief [brief description]
- *
- * [detailed description]
- *
- * \author [your name]
- * \date
- */
+$ git diff JuPedSim/develop
 ```
 
+Are these the changes you except to see? **If not, don't merge.**
+
 ```
-/*!
- * \brief [brief description]
- *
- * [detailed description]
- *
- * \param[in] [name of input parameter] [its description]
- * \param[out] [name of output parameter] [its description]
- * \return [information about return value]
- * \sa [see also section]
- * \note [any note about the function you might have]
- * \warning [any warning if necessary]
- */
+$ git merge JuPedSim/develop
 ```
 
-## Commiting Code
+Now do your [add](https://www.git-scm.com/docs/git-add) and [commit](https://www.git-scm.com/docs/git-commit).
 
-### Commiting guidelines
-Please write clear and concise commit messages so that
-your co-developers can directly grasp what changes on the code are you committing/pushing. Please do this with respect
-to the following points:
-- Name every class (file if you only change a single file) you changed and right after that a brief description of your
-change.
-- Use markdown if you want do make a longer description than two sentences.
-- Reference issues and pull requests liberally if your commit is connected to one.
-- When only changing documentation start with `:memo:`
-- Consider starting the commit message with an applicable emoji:
-    - :new: `:new:` when adding a new feature
-    - :art: `:art:` when improving the format/structure of the code
-    - :racehorse: `:racehorse:` when improving performance
-    - :memo: `:memo:` when writing docs
-    - :penguin: `:penguin:` when fixing something on Linux
-    - :apple: `:apple:` when fixing something on Mac OS
-    - :checkered_flag: `:checkered_flag:` when fixing something on Windows
-    - :bug: `:bug:` when fixing a bug
-    - :fire: `:fire:` when removing code or files
-    - :green_heart: `:green_heart:` when fixing the CI build
-    - :white_check_mark: `:white_check_mark:` when adding tests
+You are now going to push your commit up to your GitHub repo. It is good to explicitly say which repo and which branch you are pushing to, else you can forget where you are (if you are, say, a topic branch instead) and get your repo in a state that you have to untangle.
+
+```
+git push origin develop
+```
+
+Now your changes are in your repo on GitHub. It's time to submit a pull request.
+
+## Submit a pull request
+
+Go to your account on GitHub. Make sure you are on your develop branch. You should see a note saying something like "This branch is 1 commit ahead of JuPedSim:develop" (of course, this will depend on the current state of each repo). Next, click the "Compare & pull request" button. Notice you are now on the JuPedSim/jpsreport account page. Use the compare tool to double check the changes you are submitting are the ones you intend to submit. It is also possible to just see a list of the files you are touching.
+
+## Accept or reject the request
+
+Pull requests are accepted or rejected by project members. You can accept your own pull request if you are a member of the JuPedSim organization. The four-eye principle is desirable.
+
+### Checking Out GitHub Pull Requests Locally
+
+To check out GitHub pull requests locally, use this command:
+
+```
+git fetch JuPedSim pull/$1/head:pr$1
+git checkout pr$1
+```
+
+The variable `$1` stands for the number of the pull request.
