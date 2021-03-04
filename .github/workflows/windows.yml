@@ -19,11 +19,11 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          vcpkg.exe install boost-foreach boost-geometry boost-polygon boost-algorithm boost-range boost-ublas
           vcpkg.exe install fmt
           vcpkg.exe install spdlog
           vcpkg.exe install catch2
           vcpkg.exe install cli11
+          vcpkg.exe install zlib
           vcpkg.exe install python3
 
           pip3 install numpy
