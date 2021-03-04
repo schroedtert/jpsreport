@@ -22,7 +22,7 @@ jobs:
           pwd
           brew install boost
           cp scripts/setup-deps.sh ../
-          cd .. && chmod +x setup-deps.sh && CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9 ./setup-deps.sh
+          cd .. && chmod +x setup-deps.sh && ./setup-deps.sh
           pip3 install numpy && \
               pip3 install pandas && \
               pip3 install dataclasses && \
