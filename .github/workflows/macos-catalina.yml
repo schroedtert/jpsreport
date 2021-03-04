@@ -21,8 +21,8 @@ jobs:
         run: |
           pwd
           brew install boost
-          sudo cp scripts/setup-deps.sh /opt/
-          cd /opt && sudo chmod +x setup-deps.sh && CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9 ./setup-deps.sh
+          cp scripts/setup-deps.sh ../
+          cd .. && chmod +x setup-deps.sh && CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9 ./setup-deps.sh
           pip3 install numpy && \
               pip3 install pandas && \
               pip3 install dataclasses && \
