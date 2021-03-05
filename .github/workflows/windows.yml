@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          vcpkg.exe install python3
+          vcpkg.exe --feature-flags=binarycaching,manifests install python3
 
           pip3 install numpy
           pip3 install pandas
