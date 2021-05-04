@@ -30,7 +30,7 @@
 #define PEDDATA_H_
 
 #include "../general/Macros.h"
-#include "../tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
 #include <algorithm> // std::min_element, std::max_element
 #include <boost/algorithm/string.hpp>

@@ -28,7 +28,7 @@
 
 #include "Method_C.h"
 
-#include <Logger.h>
+#include "../general/Logger.h"
 
 using std::string;
 using std::vector;

@@ -30,7 +30,7 @@
 
 #include "../methods/ConfigData_D.h"
 #include "../methods/MeasurementArea.h"
-#include "../tinyxml/tinyxml.h"
+#include "tinyxml.h"
 #include "Macros.h"
 
 #include <boost/geometry/geometries/adapted/c_array.hpp>

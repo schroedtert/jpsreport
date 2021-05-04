@@ -28,7 +28,7 @@
 
 #include "PedData.h"
 
-#include <Logger.h>
+#include "../general/Logger.h"
 #include <cmath>
 #include <fstream>
 #include <string>

@@ -1,4 +1,4 @@
-#include "../Analysis.h"
+#include "../../src/Analysis.h"
 
 #include <cstdlib>
 

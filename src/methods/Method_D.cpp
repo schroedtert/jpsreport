@@ -31,7 +31,7 @@
 #include "../general/Macros.h"
 #include "ConfigData_D.h"
 
-#include <Logger.h>
+#include "../general/Logger.h"
 #include <cmath>
 #include <iostream>
 #include <map>

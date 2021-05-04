@@ -32,7 +32,7 @@
 #include "Analysis.h"
 #include "general/ArgumentParser.h"
 
-#include <Logger.h>
+#include "general/Logger.h"
 #include <chrono>
 #include <exception>
 #include <stdexcept>

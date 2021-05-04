@@ -30,7 +30,7 @@
 
 #include "../Analysis.h"
 
-#include <Logger.h>
+#include "../general/Logger.h"
 #include <fstream>
 #include <iostream>
 

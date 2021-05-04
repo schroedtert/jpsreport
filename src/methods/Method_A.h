@@ -29,7 +29,7 @@
 #define METHOD_A_H_
 
 #include "../general/Macros.h"
-#include "../tinyxml/tinyxml.h"
+#include "tinyxml.h"
 #include "MeasurementArea.h"
 #include "PedData.h"
 

@@ -27,18 +27,18 @@
  **/
 #include "ArgumentParser.h"
 
-#include "../../libcore/src/general/Compiler.h"
+#include "Compiler.h"
 #include "../Analysis.h"
-#include "../tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
-#include <Logger.h>
+#include "Logger.h"
 #include <boost/range/iterator_range.hpp>
 #include <chrono>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <numeric>
 #include <optional>
 #include <sstream>
