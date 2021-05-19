@@ -19,7 +19,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 6084F3CF81
     apt-get install -y clang-format-11
 
 
-COPY scripts/setup-deps.sh /opt/
+COPY setup-deps.sh /opt/
 
 RUN cd /opt && CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9 ./setup-deps.sh
 

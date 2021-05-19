@@ -5,9 +5,7 @@
 # ├── README.md
 # ├── JuPedSim.pdf
 # ├── bin
-# │   ├── jpscore
 # │   └── jpsreport
-# ├── jpscore_samples
 # └── jpsreport_samples
 #-------------------------------
 function (cpack_write_deb_config)
@@ -15,13 +13,12 @@ function (cpack_write_deb_config)
   list(APPEND CPACK_GENERATOR "DEB")
   set (CPACK_GENERATOR  ${CPACK_GENERATOR} PARENT_SCOPE)
   set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON PARENT_SCOPE)
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-dev (>=1.65), zlib1g-dev" PARENT_SCOPE)
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-dev (>=1.65), zlib1g-dev, libspdlog-dev (>=1.3), libfmt-dev (>=6.0)" PARENT_SCOPE)
   set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "http://jupedsim.org" PARENT_SCOPE)
-  set(CPACK_DEBIAN_PACKAGE_SUGGESTS, "jpsvis, jpseditor" PARENT_SCOPE)
   set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional" PARENT_SCOPE)
   set(CPACK_DEBIAN_PACKAGE_SECTION "science" PARENT_SCOPE)
   set(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR} PARENT_SCOPE)
-  set( CPACK_DEBIAN_PACKAGE_MAINTAINER "David Haensel" PARENT_SCOPE)
+  set(CPACK_DEBIAN_PACKAGE_MAINTAINER "David Haensel" PARENT_SCOPE)
   set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "JuPedSim: framework for simulation and analysis of pedestrian dynamics" PARENT_SCOPE)
 endfunction()
 
@@ -29,11 +26,11 @@ function (cpack_write_osx_config)
   message(STATUS "Package generation - MacOS")
   list(APPEND CPACK_GENERATOR "DragNDrop")
   set (CPACK_GENERATOR  ${CPACK_GENERATOR} PARENT_SCOPE)
-  set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/jpscore/forms/background.png" PARENT_SCOPE)
+  set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/forms/jupedsim.png" PARENT_SCOPE)
   # set(CPACK_DMG_DS_STORE_SETUP_SCRIPT
   #   "${CMAKE_SOURCE_DIR}/jpscore/forms/DS_Store.scpt" PARENT_SCOPE)
   set(CPACK_DMG_DISABLE_APPLICATIONS_SYMLINK ON  PARENT_SCOPE)
-  set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/jpscore/forms/JPScore.icns" PARENT_SCOPE)
+  set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/forms/JPSreport.icns" PARENT_SCOPE)
   set(CPACK_DMG_VOLUME_NAME "${PROJECT_NAME}" PARENT_SCOPE)
   set(CPACK_SYSTEM_NAME "OSX" PARENT_SCOPE)
 endfunction()
@@ -77,12 +74,12 @@ function (cpack_write_config)
   set(CPACK_COMPONENTS_ALL applications PARENT_SCOPE)
   set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
   set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md" PARENT_SCOPE)
-  set(CPACK_COMPONENTS_ALL applications jpscore_samples jpsreport_samples PARENT_SCOPE)
+  set(CPACK_COMPONENTS_ALL applications jpsreport_samples PARENT_SCOPE)
   set(CPACK_COMPONENT_CTDATA_GROUP "Sample files" PARENT_SCOPE)
-  set(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "jpscore and jpsreport" PARENT_SCOPE)
+  set(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "jpsreport" PARENT_SCOPE)
   set(CPACK_COMPONENT_GROUP_DATA_DESCRIPTION "Sample files" PARENT_SCOPE)
   set(CPACK_COMPONENT_DATA_FILES_DESCRIPTION "Sample files to get started" PARENT_SCOPE)
-  set(CPACK_PACKAGE_DESCRIPTION "jpscore and jpsreport" PARENT_SCOPE)
+  set(CPACK_PACKAGE_DESCRIPTION "jpsreport" PARENT_SCOPE)
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "JuPedSim: framework for simulation and analysis of pedestrian dynamics" PARENT_SCOPE)
   set(CPACK_PACKAGE_VENDOR "Forschungszentrum Juelich GmbH" PARENT_SCOPE)
   set(CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME} PARENT_SCOPE)
@@ -99,12 +96,12 @@ function (cpack_write_config)
     DESTINATION .
     COMPONENT Documents)
 
-  set(jpsguide "${CMAKE_SOURCE_DIR}/docs/jps_guide/JuPedSim.pdf")
-  if(EXISTS "${jpsguide}")
-    install(FILES "${jpsguide}"
-      DESTINATION .
-      COMPONENT Documents)
-  endif()
+#  set(jpsguide "${CMAKE_SOURCE_DIR}/docs/jps_guide/JuPedSim.pdf")
+#  if(EXISTS "${jpsguide}")
+#    install(FILES "${jpsguide}"
+#      DESTINATION .
+#      COMPONENT Documents)
+#  endif()
 
   print_var(CPACK_SOURCE_PACKAGE_FILE_NAME)
 
