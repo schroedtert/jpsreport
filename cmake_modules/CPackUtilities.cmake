@@ -8,6 +8,10 @@
 # │   └── jpsreport
 # └── jpsreport_samples
 #-------------------------------
+
+#########################################################
+# Configuration for deb package                         #
+#########################################################
 function (cpack_write_deb_config)
   message(STATUS "Package generation - LINUX")
   list(APPEND CPACK_GENERATOR "DEB")
@@ -22,6 +26,9 @@ function (cpack_write_deb_config)
   set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "JuPedSim: framework for simulation and analysis of pedestrian dynamics" PARENT_SCOPE)
 endfunction()
 
+#########################################################
+# Configuration for osx installer                       #
+#########################################################
 function (cpack_write_osx_config)
   message(STATUS "Package generation - MacOS")
   list(APPEND CPACK_GENERATOR "DragNDrop")
@@ -29,12 +36,15 @@ function (cpack_write_osx_config)
   set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/forms/jupedsim.png" PARENT_SCOPE)
   # set(CPACK_DMG_DS_STORE_SETUP_SCRIPT
   #   "${CMAKE_SOURCE_DIR}/jpscore/forms/DS_Store.scpt" PARENT_SCOPE)
-  # set(CPACK_DMG_DISABLE_APPLICATIONS_SYMLINK ON  PARENT_SCOPE)
+  #  set(CPACK_DMG_DISABLE_APPLICATIONS_SYMLINK ON  PARENT_SCOPE)
   set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/forms/JPSreport.icns" PARENT_SCOPE)
   set(CPACK_DMG_VOLUME_NAME "${PROJECT_NAME}" PARENT_SCOPE)
   set(CPACK_SYSTEM_NAME "OSX" PARENT_SCOPE)
 endfunction()
 
+#########################################################
+# Configuration for windows installer                   #
+#########################################################
 function (cpack_write_windows_config)
   message(STATUS "Package generation - Windows")
   list(APPEND CPACK_GENERATOR "NSIS")
@@ -55,8 +65,8 @@ function (cpack_write_windows_config)
   include(InstallRequiredSystemLibraries)
 
   install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
-    DESTINATION bin
-    COMPONENT applications)
+          DESTINATION bin
+          COMPONENT applications)
 
   # some configs for installer
   set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/jpscore/forms/JPScore.ico" PARENT_SCOPE)
@@ -69,8 +79,40 @@ function (cpack_write_windows_config)
   # ----------------------------
 endfunction()
 
+
+#########################################################
+#  Create installer/package for the different OS        #
+#########################################################
 function (cpack_write_config)
   message(STATUS "Cpack write configs")
+
+  include(InstallRequiredSystemLibraries)
+  include(GNUInstallDirs)
+
+  # copy executable
+  install(TARGETS jpsreport
+          DESTINATION bin
+          COMPONENT applications)
+
+  # copy readme and license
+  install(FILES "${CMAKE_SOURCE_DIR}/README.md" "${CMAKE_SOURCE_DIR}/LICENSE" DESTINATION ".")
+
+  # install all needed libs
+  install(CODE "
+    include(BundleUtilities)
+    fixup_bundle(\"\$<TARGET_FILE:jpsreport>\"  \"\" \"\")
+")
+
+  # copy sample files
+  set(CT_DATA_FILE_DIR "/demos")
+  file(GLOB CT_FILES "${CMAKE_SOURCE_DIR}/jpsreport/${CT_DATA_FILE_DIR}/*/*.xml")
+  install(FILES ${CT_FILES}
+          DESTINATION "jpsreport_samples"
+          COMPONENT jpsreport_samples)
+
+  ##################################################################
+  #                         PACKAGE                                #
+  ##################################################################
   set(CPACK_COMPONENTS_ALL applications PARENT_SCOPE)
   set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
   set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md" PARENT_SCOPE)
@@ -88,14 +130,15 @@ function (cpack_write_config)
   set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PROJECT_VERSION}" PARENT_SCOPE)
   set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PROJECT_VERSION}")
 
-  install(FILES "${CMAKE_SOURCE_DIR}/LICENSE"
-    DESTINATION .
-    COMPONENT Documents)
-
-  install(FILES "${CMAKE_SOURCE_DIR}/README.md"
-    DESTINATION .
-    COMPONENT Documents)
-
+  IF(UNIX AND NOT APPLE)
+    cpack_write_deb_config()
+  endif()
+  if(WIN32 AND NOT UNIX)
+    cpack_write_windows_config()
+  endif()
+  if(APPLE)
+    cpack_write_osx_config()
+  endif()
 #  set(jpsguide "${CMAKE_SOURCE_DIR}/docs/jps_guide/JuPedSim.pdf")
 #  if(EXISTS "${jpsguide}")
 #    install(FILES "${jpsguide}"
@@ -107,3 +150,5 @@ function (cpack_write_config)
 
   include(CPack)
 endfunction()
+
+

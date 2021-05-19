@@ -294,15 +294,5 @@ endif (BUILD_TESTING)
 ## Packaging with CPack
 #################################################################################
 include(CPackUtilities)
-IF(UNIX AND NOT APPLE)
-  cpack_write_deb_config()
-endif()
-if(WIN32 AND NOT UNIX)
-  cpack_write_windows_config()
-endif()
-if(APPLE)
-  cpack_write_osx_config()
-endif()
-
 cpack_write_config()
 
