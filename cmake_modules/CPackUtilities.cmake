@@ -84,8 +84,6 @@ endfunction()
 #########################################################
 function (cpack_write_config)
   message(STATUS "Cpack write configs")
-<<<<<<< HEAD
-=======
 
   include(InstallRequiredSystemLibraries)
   include(GNUInstallDirs)
@@ -102,7 +100,7 @@ function (cpack_write_config)
   install(CODE "
     include(BundleUtilities)
     fixup_bundle(\"\$<TARGET_FILE:jpsreport>\"  \"\" \"\")
-")
+  ")
 
   # copy sample files
   set(CT_DATA_FILE_DIR "/demos")
@@ -114,37 +112,25 @@ function (cpack_write_config)
   ##################################################################
   #                         PACKAGE                                #
   ##################################################################
-  set(CPACK_COMPONENTS_ALL applications PARENT_SCOPE)
->>>>>>> origin/tooling/cpack
-  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
-  set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md" PARENT_SCOPE)
-  set(CPACK_COMPONENTS_ALL applications jpsreport_samples PARENT_SCOPE)
-  set(CPACK_COMPONENT_CTDATA_GROUP "Sample files" PARENT_SCOPE)
-  set(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "jpsreport" PARENT_SCOPE)
-  set(CPACK_COMPONENT_GROUP_DATA_DESCRIPTION "Sample files" PARENT_SCOPE)
-  set(CPACK_COMPONENT_DATA_FILES_DESCRIPTION "Sample files to get started" PARENT_SCOPE)
-  set(CPACK_PACKAGE_DESCRIPTION "jpsreport" PARENT_SCOPE)
-  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "jpsreport: framework for analysis of pedestrian dynamics" PARENT_SCOPE)
-  set(CPACK_PACKAGE_VENDOR "Forschungszentrum Juelich GmbH" PARENT_SCOPE)
-  set(CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME} PARENT_SCOPE)
-  set(CPACK_PACKAGE_CONTACT "m.chraibi@fz-juelich.de" PARENT_SCOPE)
-  set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION} PARENT_SCOPE)
-  set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PROJECT_VERSION}" PARENT_SCOPE)
+  set(CPACK_COMPONENTS_ALL applications)
+  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+  set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
+  set(CPACK_COMPONENTS_ALL applications jpsreport_samples)
+  set(CPACK_COMPONENT_CTDATA_GROUP "Sample files")
+  set(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "jpsreport")
+  set(CPACK_COMPONENT_GROUP_DATA_DESCRIPTION "Sample files")
+  set(CPACK_COMPONENT_DATA_FILES_DESCRIPTION "Sample files to get started")
+  set(CPACK_PACKAGE_DESCRIPTION "jpsreport")
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "jpsreport: framework for analysis of pedestrian dynamics")
+  set(CPACK_PACKAGE_VENDOR "Forschungszentrum Juelich GmbH")
+  set(CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME})
+  set(CPACK_PACKAGE_CONTACT "m.chraibi@fz-juelich.de")
+  set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+  set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PROJECT_VERSION}")
   set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PROJECT_VERSION}")
   set(CPACK_MONOLITHIC_INSTALL TRUE)
   set(CPACK_CREATE_DESKTOP_LINKS jpsreport)
 
-<<<<<<< HEAD
-  install(FILES "${CMAKE_SOURCE_DIR}/ReadMe.md" "${CMAKE_SOURCE_DIR}/LICENSE" DESTINATION ".")
-    # install(FILES "${CMAKE_SOURCE_DIR}/LICENSE"
-  #   DESTINATION .
-  #   COMPONENT Documents)
-  #
-  # install(FILES "${CMAKE_SOURCE_DIR}/README.md"
-  #   DESTINATION .
-  #   COMPONENT Documents)
-
-=======
   IF(UNIX AND NOT APPLE)
     cpack_write_deb_config()
   endif()
@@ -154,7 +140,6 @@ function (cpack_write_config)
   if(APPLE)
     cpack_write_osx_config()
   endif()
->>>>>>> origin/tooling/cpack
 #  set(jpsguide "${CMAKE_SOURCE_DIR}/docs/jps_guide/JuPedSim.pdf")
 #  if(EXISTS "${jpsguide}")
 #    install(FILES "${jpsguide}"
@@ -166,5 +151,3 @@ function (cpack_write_config)
 
   include(CPack)
 endfunction()
-
-
