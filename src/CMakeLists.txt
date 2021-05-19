@@ -76,7 +76,7 @@ set_property(TARGET jpsreport PROPERTY INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 # Install targets
 ################################################################################
 install(TARGETS jpsreport
-        DESTINATION .
+        DESTINATION bin
         COMPONENT applications)
 
 set(CT_DATA_FILE_DIR "demos")

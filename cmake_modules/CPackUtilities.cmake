@@ -49,7 +49,7 @@ function (cpack_write_windows_config)
   set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP TRUE)
   set(VCPKG_DIR "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/")
   set(DIRS ${VCPKG_DIR})
-  set(DLL_FILES ${VCPKG_DIR}/zlib1.dll ${VCPKG_DIR}/fmt.dll)
+  set(DLL_FILES ${VCPKG_DIR}/fmt.dll ${VCPKG_DIR}/spdlog.dll)
   set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS "${DLL_FILES}")
   set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION "${BUNDLE_RUNTIME_DESTINATION}")
   include(InstallRequiredSystemLibraries)
@@ -59,19 +59,17 @@ function (cpack_write_windows_config)
     COMPONENT applications)
 
   # some configs for installer
-  set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/jpscore/forms/JPScore.ico" PARENT_SCOPE)
-  set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/jpscore/forms/JPScore.ico" PARENT_SCOPE)
   set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON PARENT_SCOPE)
   set(CPACK_NSIS_MODIFY_PATH ON PARENT_SCOPE)
   set(CPACK_NSIS_HELP_LINK "http://www.jupedsim.org/jupedsim_install_on_windows.html" PARENT_SCOPE)
   set(CPACK_NSIS_URL_INFO_ABOUT "http://www.jupedsim.org/" PARENT_SCOPE)
   set(CPACK_NSIS_DISPLAY_NAME ${CMAKE_PROJECT_NAME} PARENT_SCOPE)
+  set(CPACK_NSIS_INSTALLED_ICON_NAME "${CMAKE_SOURCE_DIR}/forms/jpsreport.ico")
   # ----------------------------
 endfunction()
 
 function (cpack_write_config)
   message(STATUS "Cpack write configs")
-  set(CPACK_COMPONENTS_ALL applications PARENT_SCOPE)
   set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE" PARENT_SCOPE)
   set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md" PARENT_SCOPE)
   set(CPACK_COMPONENTS_ALL applications jpsreport_samples PARENT_SCOPE)
@@ -80,21 +78,24 @@ function (cpack_write_config)
   set(CPACK_COMPONENT_GROUP_DATA_DESCRIPTION "Sample files" PARENT_SCOPE)
   set(CPACK_COMPONENT_DATA_FILES_DESCRIPTION "Sample files to get started" PARENT_SCOPE)
   set(CPACK_PACKAGE_DESCRIPTION "jpsreport" PARENT_SCOPE)
-  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "JuPedSim: framework for simulation and analysis of pedestrian dynamics" PARENT_SCOPE)
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "jpsreport: framework for analysis of pedestrian dynamics" PARENT_SCOPE)
   set(CPACK_PACKAGE_VENDOR "Forschungszentrum Juelich GmbH" PARENT_SCOPE)
   set(CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME} PARENT_SCOPE)
   set(CPACK_PACKAGE_CONTACT "m.chraibi@fz-juelich.de" PARENT_SCOPE)
   set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION} PARENT_SCOPE)
   set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PROJECT_VERSION}" PARENT_SCOPE)
   set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${PROJECT_VERSION}")
+  set(CPACK_MONOLITHIC_INSTALL TRUE)
+  set(CPACK_CREATE_DESKTOP_LINKS jpsreport)
 
-  install(FILES "${CMAKE_SOURCE_DIR}/LICENSE"
-    DESTINATION .
-    COMPONENT Documents)
-
-  install(FILES "${CMAKE_SOURCE_DIR}/README.md"
-    DESTINATION .
-    COMPONENT Documents)
+  install(FILES "${CMAKE_SOURCE_DIR}/ReadMe.md" "${CMAKE_SOURCE_DIR}/LICENSE" DESTINATION ".")
+    # install(FILES "${CMAKE_SOURCE_DIR}/LICENSE"
+  #   DESTINATION .
+  #   COMPONENT Documents)
+  #
+  # install(FILES "${CMAKE_SOURCE_DIR}/README.md"
+  #   DESTINATION .
+  #   COMPONENT Documents)
 
 #  set(jpsguide "${CMAKE_SOURCE_DIR}/docs/jps_guide/JuPedSim.pdf")
 #  if(EXISTS "${jpsguide}")

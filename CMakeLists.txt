@@ -119,7 +119,6 @@ else()
 endif()
 
 #find_package(Threads REQUIRED)
-find_package(PythonInterp 3 REQUIRED)
 
 ################################################################################
 # VCS info
@@ -284,6 +283,8 @@ endif()
 ################################################################################
 if (BUILD_TESTING)
   # Find libraries needed by python tests
+  find_package(PythonInterp 3 REQUIRED)
+
   find_python_library(numpy)
   find_python_library(scipy)
   find_python_library(pandas)
@@ -294,6 +295,8 @@ endif (BUILD_TESTING)
 ## Packaging with CPack
 #################################################################################
 include(CPackUtilities)
+cpack_write_config()
+
 IF(UNIX AND NOT APPLE)
   cpack_write_deb_config()
 endif()
@@ -303,6 +306,3 @@ endif()
 if(APPLE)
   cpack_write_osx_config()
 endif()
-
-cpack_write_config()
-

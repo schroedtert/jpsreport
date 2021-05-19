@@ -26,6 +26,7 @@ macro(enforce_build_type_is_set)
         set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
                 STRING "Choose the type of build." FORCE)
     endif()
+    message("Build type: '${CMAKE_BUILD_TYPE}'")
 endmacro()
 
 # Adds an option to cmake configure to automatically build with clang
